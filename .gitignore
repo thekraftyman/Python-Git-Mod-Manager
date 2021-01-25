@@ -1,1 +1,7 @@
 mods/*
+__pycache__
+__pycache__/*
+core/__pycache__
+core/__pycache__/*
+among_us_game_tmp
+among_us_game_tmp/*
