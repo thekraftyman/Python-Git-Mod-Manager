@@ -5,3 +5,4 @@ core/__pycache__
 core/__pycache__/*
 among_us_game_tmp
 among_us_game_tmp/*
+var/user_vars.json
