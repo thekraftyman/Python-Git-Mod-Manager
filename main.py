@@ -44,7 +44,7 @@ def main():
 
     # copy core game files into tmp dir
     for filename in game_files['base_game_files']:
-        if not user_vars['base_game_path'].endswith('\\'):
+        if user_vars['base_game_path'].endswith('\\'):
             full_source = user_vars['base_game_path'] + filename
         else:
             full_source = user_vars['base_game_path'] + DIR_DELIM + filename
@@ -54,7 +54,7 @@ def main():
 
     # copy core game dirs
     for dirname in game_files['base_game_dirs']:
-        if not user_vars['base_game_path'].endswith('\\'):
+        if user_vars['base_game_path'].endswith('\\'):
             full_source = user_vars['base_game_path'] + dirname
         else:
             full_source = user_vars['base_game_path'] + DIR_DELIM + dirname
