@@ -92,7 +92,8 @@ def main():
         copytree(source,dest)
 
     # run the game
-    os.system(tmp_game_dir + 'Among Us.exe')
+    # os.system(tmp_game_dir + 'Among Us.exe')
+    os.system('"' + tmp_game_dir + "Among Us.exe" + '"')
 
 
 
