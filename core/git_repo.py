@@ -11,11 +11,15 @@ import os
 class GitRepo:
 
     def __init__(self, repo_url, repo_path, parent_path, branch = "Master", debug = False):
+        # init vars
         self._repo_url = repo_url
         self._branch = branch
         self._path = repo_path
         self._parent_path = parent_path
         self._debug = debug
+        self._repo = None
+
+        # init the git repo
         self._git_init()
 
     def _git_init(self):
@@ -46,6 +50,9 @@ class GitRepo:
             exit()
 
         # make sure we're on the right branch
+        branch_res = self._repo.git.checkout(self._branch)
+        if not branch_res:
+            raise Exception("Could not change to correct branch of repo")
 
 
     def update(self):
