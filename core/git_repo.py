@@ -60,6 +60,11 @@ class GitRepo:
         if not self._cloned:
             self.update()
 
+    @property
+    def path(self):
+        ''' returns self._path '''
+        return self._path
+
 
     def update(self):
         """
