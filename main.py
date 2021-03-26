@@ -2,19 +2,15 @@
 # By: Adam Kraft
 
 # import libraries
-import platform # for testing on a non-windows device
 import os
+import core.globals as global_vars
 from core.misc import *
 from shutil import copyfile, rmtree, copytree
 
-# Fun Globals ---------
-DIR_DELIM = '/' if platform.system() != 'Windows' else '\\'
-DEV_MODE = platform.system() != 'Windows'
-BASE_DIR = os.getcwd()
-CORE_GAME_FILES = BASE_DIR + DIR_DELIM + 'var' + DIR_DELIM + 'core_files.json'
-USER_VARS = BASE_DIR + DIR_DELIM + 'var' + DIR_DELIM + 'user_vars.json'
-
 def main():
+    # get global vars
+    global_vars.init_globals()
+
     # initialize with user vars
     if not os.path.exists(USER_VARS) or DEV_MODE:
         user_vars = {}

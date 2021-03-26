@@ -18,6 +18,7 @@ class GitRepo:
         self._parent_path = parent_path
         self._debug = debug
         self._repo = None
+        self._cloned = False
 
         # init the git repo
         self._git_init()
@@ -38,6 +39,7 @@ class GitRepo:
             if self._debug:
                 print(f'Repo doesn\'t exist, cloning at {self._path}')
             git.Repo.clone_from(self._repo_url, self._path)
+            self._cloned = True
 
         # load the repo
         if self._debug:
@@ -54,13 +56,27 @@ class GitRepo:
         if not branch_res:
             raise Exception("Could not change to correct branch of repo")
 
+        # Make sure we're up to date (skip if just cloned)
+        if not self._cloned:
+            self.update()
+
 
     def update(self):
         """
         Updates the code in the repo to the latest version
         """
-        # ...
-        pass
+        # only update if update is available
+        if self._debug:
+            print("Checking for updates...")
+
+        if self.check_update():
+            if self._debug:
+                print("\tUpdate found, pulling...")
+            self._repo.remotes.origin.pull()
+        else:
+            if self._debug:
+                print("\tNo updates found!")
+
 
     def check_update(self):
         """
@@ -72,10 +88,12 @@ class GitRepo:
             true if update is available, else false
         """
 
-        # ...
-        pass
+        # fetch origin
+        fetch_res = self._repo.remotes.origin.fetch()
 
-    def download(self, repo_url, dir):
-        """
-        Downloads a given git repo to a specified dir
-        """
+        # get last commit saved locally
+        commits = self._repo.iter_commits()
+        last_commit = [i for i in commits][0]
+
+        # return comparison of last commit and fetched changes
+        return fetch_res[0].commit != last_commit
